@@ -15,22 +15,35 @@ Take Out Orders: [17, 8, 24]
 Dine In Orders: [12, 19, 2]
 Served Orders: [17, 8, 12, 19, 24, 2]
 */
+
 function cafeOrderChecker(takeOut, dineIn, served) {
   let currTakeOutIdx = 0;
   let currDineInIdx = 0;
   let currServedIdx = 0;
+  const takeOutIdxMax = takeOut.length - 1;
+  const dineInIdxMax = dineIn.length - 1;
+
+  if (!served.length) {return false;}
 
   while (currServedIdx < served.length) {
     let currServedOrder = served[currServedIdx];
 
-    if (currServedOrder === takeOut[currTakeOutIdx]) {
+    if (currTakeOutIdx <= takeOutIdxMax && 
+        currServedOrder === takeOut[currTakeOutIdx]) {
       currTakeOutIdx++;
-    } else if (currServedOrder === dineIn[currDineInIdx]) {
+    } else if (currDineInIdx <= dineInIdxMax &&
+        currServedOrder === dineIn[currDineInIdx]) {
       currDineInIdx++;
     } else {
       return false;
     }
     currServedIdx++;
   }
+
+  if (currTakeOutIdx !== takeOut.length ||
+      currDineInIdx !== dineIn.length) {
+        return false;
+      }
+
   return true;
 }
